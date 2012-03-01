@@ -89,12 +89,10 @@ genv::canvas::canvas() {
 genv::canvas::canvas(const genv::canvas & c) {
     pt_x=c.pt_x;
     pt_y=c.pt_y;
-    if (buf) SDL_FreeSurface(buf);
     draw_clr = c.draw_clr;
     transp = c.transp;
     antialiastext = c.antialiastext;
 
-    if (buf) SDL_FreeSurface(buf);
     if (c.buf) {
         buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0);
         SDL_Rect trg;
@@ -103,7 +101,8 @@ genv::canvas::canvas(const genv::canvas & c) {
         SDL_BlitSurface( c.buf, NULL, buf, &trg);
     }
 
-    if (font) TTF_CloseFont(font);
+    font=0;
+
     if (c.font) {
         load_font(c.loaded_font_file_name, c.font_size);
     }
