@@ -17,6 +17,7 @@ public:
     canvas();
     virtual ~canvas();
     canvas(int w, int h);
+    canvas(const canvas & c);
     bool open(unsigned width, unsigned height);
     bool save(const std::string& file) const;
     void transparent(bool t) {transp=t;}
@@ -64,6 +65,8 @@ protected:
     bool transp;
     _TTF_Font* font;
     bool antialiastext;
+    std::string loaded_font_file_name;
+    int font_size;
 
 };
 

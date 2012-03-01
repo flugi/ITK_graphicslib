@@ -86,9 +86,34 @@ genv::canvas::canvas() {
     set_color(255,255,255);
 }
 
+genv::canvas::canvas(const genv::canvas & c) {
+    pt_x=c.pt_x;
+    pt_y=c.pt_y;
+    if (buf) SDL_FreeSurface(buf);
+    draw_clr = c.draw_clr;
+    transp = c.transp;
+    antialiastext = c.antialiastext;
+
+    if (buf) SDL_FreeSurface(buf);
+    if (c.buf) {
+        buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0);
+        SDL_Rect trg;
+        trg.x = 0;
+        trg.y = 0;
+        SDL_BlitSurface( c.buf, NULL, buf, &trg);
+    }
+
+    if (font) TTF_CloseFont(font);
+    if (c.font) {
+        load_font(c.loaded_font_file_name, c.font_size);
+    }
+
+}
+
 genv::canvas::canvas(int w, int h) {
     buf=0;
     font=0;
+    loaded_font_file_name="";
     transp=0;
     set_color(255,255,255);
     open(w,h);
@@ -302,6 +327,7 @@ void genv::canvas::draw_text(const std::string& str)
         SDL_Rect offset;
         offset.x = pt_x;
         offset.y = pt_y;
+        pt_x += t->w;
         SDL_BlitSurface( t, NULL, buf, &offset);
         //std::cout << "DIMENSIONS: " << t->w << "," << t->h << std::endl;
         SDL_FreeSurface(t);
@@ -333,6 +359,8 @@ bool genv::canvas::load_font(const std::string& fname, int fontsize, bool antial
   font = TTF_OpenFont( fname.c_str(), fontsize );
   if (font == 0) // loading error
     return false;
+  loaded_font_file_name=fname;
+  font_size=fontsize;
   antialiastext=antialias;
   return true;
 }
