@@ -1,0 +1,265 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C35DC78F158167BE001A3D64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC78E158167BE001A3D64 /* Cocoa.framework */; };
+		C35DC7C31581682A001A3D64 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC7C21581682A001A3D64 /* SDL.framework */; };
+		C35DC7C515816833001A3D64 /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC7C415816833001A3D64 /* SDL_ttf.framework */; };
+		C35DC82F15817822001A3D64 /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35DC81F158177C3001A3D64 /* graphics.cpp */; };
+		C35DC83E15817BC4001A3D64 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35DC79A158167BE001A3D64 /* main.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C35DC78A158167BE001A3D64 /* Beadando_1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beadando_1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35DC78E158167BE001A3D64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C35DC791158167BE001A3D64 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		C35DC792158167BE001A3D64 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C35DC793158167BE001A3D64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C35DC79A158167BE001A3D64 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C35DC7C21581682A001A3D64 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = Library/Frameworks/SDL.framework; sourceTree = SDKROOT; };
+		C35DC7C415816833001A3D64 /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = Library/Frameworks/SDL_ttf.framework; sourceTree = SDKROOT; };
+		C35DC81F158177C3001A3D64 /* graphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics.cpp; sourceTree = "<group>"; };
+		C35DC820158177C3001A3D64 /* graphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = graphics.hpp; sourceTree = "<group>"; };
+		C35DC8351581793F001A3D64 /* keytbl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytbl.h; sourceTree = "<group>"; };
+		C3DBF1DB1582337900B57D90 /* char2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = char2.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C35DC787158167BE001A3D64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35DC7C515816833001A3D64 /* SDL_ttf.framework in Frameworks */,
+				C35DC7C31581682A001A3D64 /* SDL.framework in Frameworks */,
+				C35DC78F158167BE001A3D64 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C35DC77F158167BE001A3D64 = {
+			isa = PBXGroup;
+			children = (
+				C35DC794158167BE001A3D64 /* Beadando_1 */,
+				C35DC78D158167BE001A3D64 /* Frameworks */,
+				C35DC78B158167BE001A3D64 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C35DC78B158167BE001A3D64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C35DC78A158167BE001A3D64 /* Beadando_1.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C35DC78D158167BE001A3D64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C35DC78E158167BE001A3D64 /* Cocoa.framework */,
+				C35DC7C415816833001A3D64 /* SDL_ttf.framework */,
+				C35DC7C21581682A001A3D64 /* SDL.framework */,
+				C35DC790158167BE001A3D64 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C35DC790158167BE001A3D64 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C35DC791158167BE001A3D64 /* AppKit.framework */,
+				C35DC792158167BE001A3D64 /* CoreData.framework */,
+				C35DC793158167BE001A3D64 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		C35DC794158167BE001A3D64 /* Beadando_1 */ = {
+			isa = PBXGroup;
+			children = (
+				C35DC795158167BE001A3D64 /* Supporting Files */,
+			);
+			path = Beadando_1;
+			sourceTree = "<group>";
+		};
+		C35DC795158167BE001A3D64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C3DBF1DB1582337900B57D90 /* char2.h */,
+				C35DC8351581793F001A3D64 /* keytbl.h */,
+				C35DC820158177C3001A3D64 /* graphics.hpp */,
+				C35DC81F158177C3001A3D64 /* graphics.cpp */,
+				C35DC79A158167BE001A3D64 /* main.cpp */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C35DC789158167BE001A3D64 /* probaApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C35DC7BC158167BF001A3D64 /* Build configuration list for PBXNativeTarget "probaApp" */;
+			buildPhases = (
+				C35DC786158167BE001A3D64 /* Sources */,
+				C35DC787158167BE001A3D64 /* Frameworks */,
+				C35DC788158167BE001A3D64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = probaApp;
+			productName = Beadando_1;
+			productReference = C35DC78A158167BE001A3D64 /* Beadando_1.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C35DC781158167BE001A3D64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = C35DC784158167BE001A3D64 /* Build configuration list for PBXProject "ITK_graphicslib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C35DC77F158167BE001A3D64;
+			productRefGroup = C35DC78B158167BE001A3D64 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C35DC789158167BE001A3D64 /* probaApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C35DC788158167BE001A3D64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C35DC786158167BE001A3D64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35DC82F15817822001A3D64 /* graphics.cpp in Sources */,
+				C35DC83E15817BC4001A3D64 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C35DC7BA158167BF001A3D64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C35DC7BB158167BF001A3D64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C35DC7BD158167BF001A3D64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Beadando_1/Beadando_1-Prefix.pch";
+				INFOPLIST_FILE = "Beadando_1/Beadando_1-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C35DC7BE158167BF001A3D64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Beadando_1/Beadando_1-Prefix.pch";
+				INFOPLIST_FILE = "Beadando_1/Beadando_1-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C35DC784158167BE001A3D64 /* Build configuration list for PBXProject "ITK_graphicslib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C35DC7BA158167BF001A3D64 /* Debug */,
+				C35DC7BB158167BF001A3D64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C35DC7BC158167BF001A3D64 /* Build configuration list for PBXNativeTarget "probaApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C35DC7BD158167BF001A3D64 /* Debug */,
+				C35DC7BE158167BF001A3D64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C35DC781158167BE001A3D64 /* Project object */;
+}
