@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C35DC78A158167BE001A3D64 /* Beadando_1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beadando_1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35DC78A158167BE001A3D64 /* Beadando_1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Beadando_1.app; path = probaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35DC78E158167BE001A3D64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C35DC791158167BE001A3D64 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C35DC792158167BE001A3D64 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -46,7 +46,7 @@
 		C35DC77F158167BE001A3D64 = {
 			isa = PBXGroup;
 			children = (
-				C35DC794158167BE001A3D64 /* Beadando_1 */,
+				C35DC794158167BE001A3D64 /* ITK_graphicslib */,
 				C35DC78D158167BE001A3D64 /* Frameworks */,
 				C35DC78B158167BE001A3D64 /* Products */,
 			);
@@ -81,11 +81,12 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		C35DC794158167BE001A3D64 /* Beadando_1 */ = {
+		C35DC794158167BE001A3D64 /* ITK_graphicslib */ = {
 			isa = PBXGroup;
 			children = (
 				C35DC795158167BE001A3D64 /* Supporting Files */,
 			);
+			name = ITK_graphicslib;
 			path = Beadando_1;
 			sourceTree = "<group>";
 		};
