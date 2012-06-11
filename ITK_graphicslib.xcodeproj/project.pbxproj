@@ -10,23 +10,39 @@
 		C35DC78F158167BE001A3D64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC78E158167BE001A3D64 /* Cocoa.framework */; };
 		C35DC7C31581682A001A3D64 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC7C21581682A001A3D64 /* SDL.framework */; };
 		C35DC7C515816833001A3D64 /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DC7C415816833001A3D64 /* SDL_ttf.framework */; };
-		C35DC82F15817822001A3D64 /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35DC81F158177C3001A3D64 /* graphics.cpp */; };
-		C35DC83E15817BC4001A3D64 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35DC79A158167BE001A3D64 /* main.cpp */; };
+		C3DBF21315825CAA00B57D90 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DBF21115825CAA00B57D90 /* MainMenu.xib */; };
+		C3DBF2321582641400B57D90 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C3DBF22E1582641400B57D90 /* Credits.rtf */; };
+		C3DBF2331582641400B57D90 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3DBF2301582641400B57D90 /* InfoPlist.strings */; };
+		C3DBF24C15826F7000B57D90 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DBF24915826F7000B57D90 /* main.cpp */; };
+		C3DBF24D15826F7000B57D90 /* mainCPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DBF24A15826F7000B57D90 /* mainCPP.cpp */; };
+		C3DBF25015826F8A00B57D90 /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DBF24E15826F8A00B57D90 /* graphics.cpp */; };
+		C3DBF25315826FE400B57D90 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DBF25215826FE400B57D90 /* SDLMain.m */; };
+		C3DBF261158272E800B57D90 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DBF260158272E800B57D90 /* Application.xib */; };
+		C3DBF26A1582789500B57D90 /* SDLApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DBF2691582789500B57D90 /* SDLApplication.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C35DC78A158167BE001A3D64 /* Beadando_1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Beadando_1.app; path = probaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35DC78A158167BE001A3D64 /* probaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = probaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35DC78E158167BE001A3D64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C35DC791158167BE001A3D64 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C35DC792158167BE001A3D64 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C35DC793158167BE001A3D64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C35DC79A158167BE001A3D64 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C35DC7C21581682A001A3D64 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = Library/Frameworks/SDL.framework; sourceTree = SDKROOT; };
 		C35DC7C415816833001A3D64 /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = Library/Frameworks/SDL_ttf.framework; sourceTree = SDKROOT; };
-		C35DC81F158177C3001A3D64 /* graphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics.cpp; sourceTree = "<group>"; };
-		C35DC820158177C3001A3D64 /* graphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = graphics.hpp; sourceTree = "<group>"; };
-		C35DC8351581793F001A3D64 /* keytbl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytbl.h; sourceTree = "<group>"; };
-		C3DBF1DB1582337900B57D90 /* char2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = char2.h; sourceTree = "<group>"; };
+		C3DBF22F1582641400B57D90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
+		C3DBF2311582641400B57D90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		C3DBF24615826C8E00B57D90 /* ITK_graphicslib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ITK_graphicslib-Info.plist"; sourceTree = "<group>"; };
+		C3DBF24715826C8E00B57D90 /* ITK_graphicslib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ITK_graphicslib-Prefix.pch"; sourceTree = "<group>"; };
+		C3DBF24915826F7000B57D90 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		C3DBF24A15826F7000B57D90 /* mainCPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainCPP.cpp; sourceTree = SOURCE_ROOT; };
+		C3DBF24B15826F7000B57D90 /* mainCPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainCPP.h; sourceTree = SOURCE_ROOT; };
+		C3DBF24E15826F8A00B57D90 /* graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphics.cpp; sourceTree = SOURCE_ROOT; };
+		C3DBF24F15826F8A00B57D90 /* graphics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graphics.hpp; sourceTree = SOURCE_ROOT; };
+		C3DBF25115826FE400B57D90 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = SOURCE_ROOT; };
+		C3DBF25215826FE400B57D90 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = SOURCE_ROOT; };
+		C3DBF260158272E800B57D90 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = SOURCE_ROOT; };
+		C3DBF2681582789500B57D90 /* SDLApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLApplication.h; sourceTree = SOURCE_ROOT; };
+		C3DBF2691582789500B57D90 /* SDLApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLApplication.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				C35DC794158167BE001A3D64 /* ITK_graphicslib */,
+				C3DBF26B1582AF5900B57D90 /* Resources */,
 				C35DC78D158167BE001A3D64 /* Frameworks */,
 				C35DC78B158167BE001A3D64 /* Products */,
 			);
@@ -55,7 +72,7 @@
 		C35DC78B158167BE001A3D64 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C35DC78A158167BE001A3D64 /* Beadando_1.app */,
+				C35DC78A158167BE001A3D64 /* probaApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +101,10 @@
 		C35DC794158167BE001A3D64 /* ITK_graphicslib */ = {
 			isa = PBXGroup;
 			children = (
+				C3DBF24B15826F7000B57D90 /* mainCPP.h */,
+				C3DBF24A15826F7000B57D90 /* mainCPP.cpp */,
+				C3DBF24915826F7000B57D90 /* main.cpp */,
+				C3DBF20015825AF600B57D90 /* graphicslib */,
 				C35DC795158167BE001A3D64 /* Supporting Files */,
 			);
 			name = ITK_graphicslib;
@@ -93,13 +114,33 @@
 		C35DC795158167BE001A3D64 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C3DBF1DB1582337900B57D90 /* char2.h */,
-				C35DC8351581793F001A3D64 /* keytbl.h */,
-				C35DC820158177C3001A3D64 /* graphics.hpp */,
-				C35DC81F158177C3001A3D64 /* graphics.cpp */,
-				C35DC79A158167BE001A3D64 /* main.cpp */,
+				C3DBF260158272E800B57D90 /* Application.xib */,
+				C3DBF2681582789500B57D90 /* SDLApplication.h */,
+				C3DBF2691582789500B57D90 /* SDLApplication.m */,
+				C3DBF25115826FE400B57D90 /* SDLMain.h */,
+				C3DBF25215826FE400B57D90 /* SDLMain.m */,
+				C3DBF24615826C8E00B57D90 /* ITK_graphicslib-Info.plist */,
+				C3DBF24715826C8E00B57D90 /* ITK_graphicslib-Prefix.pch */,
+				C3DBF22E1582641400B57D90 /* Credits.rtf */,
+				C3DBF2301582641400B57D90 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C3DBF20015825AF600B57D90 /* graphicslib */ = {
+			isa = PBXGroup;
+			children = (
+				C3DBF24F15826F8A00B57D90 /* graphics.hpp */,
+				C3DBF24E15826F8A00B57D90 /* graphics.cpp */,
+			);
+			name = graphicslib;
+			sourceTree = "<group>";
+		};
+		C3DBF26B1582AF5900B57D90 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +160,7 @@
 			);
 			name = probaApp;
 			productName = Beadando_1;
-			productReference = C35DC78A158167BE001A3D64 /* Beadando_1.app */;
+			productReference = C35DC78A158167BE001A3D64 /* probaApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -152,6 +193,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3DBF21315825CAA00B57D90 /* MainMenu.xib in Resources */,
+				C3DBF2321582641400B57D90 /* Credits.rtf in Resources */,
+				C3DBF2331582641400B57D90 /* InfoPlist.strings in Resources */,
+				C3DBF261158272E800B57D90 /* Application.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,12 +207,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C35DC82F15817822001A3D64 /* graphics.cpp in Sources */,
-				C35DC83E15817BC4001A3D64 /* main.cpp in Sources */,
+				C3DBF24C15826F7000B57D90 /* main.cpp in Sources */,
+				C3DBF24D15826F7000B57D90 /* mainCPP.cpp in Sources */,
+				C3DBF25015826F8A00B57D90 /* graphics.cpp in Sources */,
+				C3DBF25315826FE400B57D90 /* SDLMain.m in Sources */,
+				C3DBF26A1582789500B57D90 /* SDLApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C3DBF21115825CAA00B57D90 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+			);
+			name = MainMenu.xib;
+			path = "/Users/okocsis/Programozas/!BevProg2/2012/Beadandok/ITK_graphicslib/Beadando_1";
+			sourceTree = "<absolute>";
+		};
+		C3DBF22E1582641400B57D90 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DBF22F1582641400B57D90 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C3DBF2301582641400B57D90 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DBF2311582641400B57D90 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C35DC7BA158167BF001A3D64 /* Debug */ = {
@@ -221,8 +296,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Beadando_1/Beadando_1-Prefix.pch";
-				INFOPLIST_FILE = "Beadando_1/Beadando_1-Info.plist";
+				GCC_PREFIX_HEADER = "ITK_graphicslib-Prefix.pch";
+				INFOPLIST_FILE = "ITK_graphicslib-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -232,8 +307,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Beadando_1/Beadando_1-Prefix.pch";
-				INFOPLIST_FILE = "Beadando_1/Beadando_1-Info.plist";
+				GCC_PREFIX_HEADER = "ITK_graphicslib-Prefix.pch";
+				INFOPLIST_FILE = "ITK_graphicslib-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
