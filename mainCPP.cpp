@@ -17,6 +17,7 @@ const int Y=480;
 
 int mainCPP(int argc, char *argv[])
 {
+    
     gout.open(X, Y);
     gout << move_to(10,10) << color(255,255,255) << box(X-20,Y-20);
     event ev;
