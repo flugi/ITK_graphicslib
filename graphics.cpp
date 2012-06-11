@@ -1,7 +1,23 @@
 #include "graphics.hpp"
+#ifdef __APPLE__
+
+#ifdef  __MAC_10_7 // you just need to add SDL, and SDL_ttf to you frameworks
+
+#include <SDL/SDL.h>
+#include <SDL_ttf/SDL_ttf.h>
+
+#else // in OSX lower than 10.7 you need to define header search paths manually
+
+#include "SDL.h"
+#include "SDL_ttf.h" 
+
+#endif
+#else
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 
+#endif
 #include <cstdlib>
 #include <algorithm>
 #include <iostream>
@@ -21,17 +37,31 @@ namespace
 
     inline Uint32& pixel(SDL_Surface* screen, int x, int y)
     {
+        
         return *((Uint32*)screen->pixels + y * screen->w + x);
     }
 
     inline void project(SDL_Surface* screen, int draw_clr, int x, int y, int val, int max)
     {
+		int l;
+		int m;
+		int n;
+#ifdef __APPLE__
+		l=24;
+		m=16;
+		n=8;
+#else
+		l=0;
+		m=8;
+		n=16;
+#endif	
+
         Uint32& pix = pixel(screen, x, y);
-        static const int c[] = {0, 8, 16};
+        static const int c[] = {l, m, n};
         for (int i=0; i<3; ++i)
         {
             int col = ( ((pix >> c[i])      & 0xff) * (max-val) +
-                        ((draw_clr >> c[i]) & 0xff) * val) / max;
+                        ((draw_clr >> c[i]) & 0xff) * val ) / max;
             pix = pix & (~(0xff << c[i])) | (col << c[i]);
         }
     }
@@ -86,14 +116,16 @@ genv::canvas::canvas() {
     set_color(255,255,255);
 }
 
-genv::canvas::canvas(const genv::canvas & c) {
+genv::canvas::canvas(const genv::canvas & c) 
+{
     pt_x=c.pt_x;
     pt_y=c.pt_y;
     draw_clr = c.draw_clr;
     transp = c.transp;
     antialiastext = c.antialiastext;
 
-    if (c.buf) {
+    if (c.buf) 
+    {
         buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0);
         SDL_Rect trg;
         trg.x = 0;
@@ -103,13 +135,15 @@ genv::canvas::canvas(const genv::canvas & c) {
 
     font=0;
 
-    if (c.font) {
+    if (c.font) 
+    {
         load_font(c.loaded_font_file_name, c.font_size);
     }
 
 }
 
-genv::canvas::canvas(int w, int h) {
+genv::canvas::canvas(int w, int h) 
+{
     buf=0;
     font=0;
     loaded_font_file_name="";
@@ -188,7 +222,19 @@ void genv::groutput::set_title(const std::string& title) {
 
 void genv::canvas::set_color(int r, int g, int b)
 {
-    draw_clr = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+    int l;
+	int m;
+	int n;
+#ifdef __APPLE__
+	l=24;
+	m=16;
+	n=8;
+#else
+	l=0;
+	m=8;
+	n=16;
+#endif
+    draw_clr = ((r & 0xff) << n) | ((g & 0xff) << m) | ((b & 0xff) << l);
 }
 
 bool genv::canvas::move_point(int x, int y)
@@ -312,9 +358,16 @@ void genv::canvas::draw_text(const std::string& str)
     }
     else { // SDL_ttf
         // get color from draw_clr:
-        int rc = (draw_clr & 0xff0000) >> 16,
-            gc = (draw_clr & 0x00ff00) >>  8,
-            bc = (draw_clr & 0x0000ff);
+        
+#ifdef __APPLE__
+		int rc = (draw_clr & 0xff000000) >> 24,
+        gc = (draw_clr & 0x00ff0000) >>	16,
+        bc = (draw_clr & 0x0000ff00) >> 8 ;
+#else
+		int rc = (draw_clr & 0xff0000) >> 16,
+        gc = (draw_clr & 0x00ff00) >>  8,
+        bc = (draw_clr & 0x0000ff);
+#endif
         SDL_Color text_clr = {rc, gc, bc};
         SDL_Surface* t;
         // render text in blended mode (AA)
