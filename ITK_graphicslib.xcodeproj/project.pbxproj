@@ -63,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				C35DC794158167BE001A3D64 /* ITK_graphicslib */,
-				C3DBF26B1582AF5900B57D90 /* Resources */,
 				C35DC78D158167BE001A3D64 /* Frameworks */,
 				C35DC78B158167BE001A3D64 /* Products */,
 			);
@@ -134,13 +133,6 @@
 				C3DBF24E15826F8A00B57D90 /* graphics.cpp */,
 			);
 			name = graphicslib;
-			sourceTree = "<group>";
-		};
-		C3DBF26B1582AF5900B57D90 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
