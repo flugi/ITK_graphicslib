@@ -8,6 +8,6 @@
 
 #ifndef Beadando_1_mainCPP_h
 #define Beadando_1_mainCPP_h
-extern int mainCPP(int argc, char *argv[]);
+extern int mainCPP(int argc, char **argv);
 
 #endif

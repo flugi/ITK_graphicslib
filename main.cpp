@@ -6,7 +6,7 @@
 extern "C"
 #endif 
 
-int SDL_main(int argc, char *argv[])
+int SDL_main(int argc, char **argv)
 {
     mainCPP(argc, argv);
     return 0;

@@ -62,7 +62,7 @@ namespace
         {
             int col = ( ((pix >> c[i])      & 0xff) * (max-val) +
                         ((draw_clr >> c[i]) & 0xff) * val ) / max;
-            pix = pix & (~(0xff << c[i])) | (col << c[i]);
+            pix = (pix & (~(0xff << c[i]))) | (col << c[i]);
         }
     }
 
@@ -527,7 +527,7 @@ int genv::canvas::twidth(const std::string& s) const
     if (font == 0) {
         std::string::const_iterator prev = s.begin(), next;
         next = std::find(prev, s.end(), '\n');
-        int max = next - prev;
+        int max = (int)(next - prev);
 
         while (next != s.end())
         {

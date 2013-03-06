@@ -15,7 +15,7 @@ using namespace std;
 const int X=640;
 const int Y=480;
 
-int mainCPP(int argc, char *argv[])
+int mainCPP(int argc, char **argv)
 {
     
     gout.open(X, Y);
