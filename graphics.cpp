@@ -360,9 +360,9 @@ void genv::canvas::draw_text(const std::string& str)
         // get color from draw_clr:
         
 #ifdef __APPLE__
-		int rc = (draw_clr & 0xff000000) >> 24,
+		int bc = (draw_clr & 0xff000000) >> 24,
         gc = (draw_clr & 0x00ff0000) >>	16,
-        bc = (draw_clr & 0x0000ff00) >> 8 ;
+        rc = (draw_clr & 0x0000ff00) >> 8 ;
 #else
 		int rc = (draw_clr & 0xff0000) >> 16,
         gc = (draw_clr & 0x00ff00) >>  8,

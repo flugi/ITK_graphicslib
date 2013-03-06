@@ -110,7 +110,7 @@ int mainCPP(int argc, char **argv)
         gout << move_to(X/40*i, 0) << line(0,Y);
         gout << move_to(0,Y/40*i) << line(X,0);
     }
-    gout << move_to(X/2-100,Y/2)<<color(255,255,255) << text("canvas test - press space");
+    gout << move_to(X/2-100,Y/2)<<color(255,0,0) << text("canvas test - press space");
     gout << refresh;
     gin.timer(40);
     while (gin >> ev && ev.keycode != key_space)
