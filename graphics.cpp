@@ -188,7 +188,14 @@ void genv::groutput::set_title(const std::string& title) {
 
 void genv::canvas::set_color(int r, int g, int b)
 {
+#ifdef __APPLE__
+    // IDK if this is a bug in OSX, SDL or this code, but without this,
+    // the color components are wrong (blue channel does not work,
+    // 0xffffff is yellow, not white)
+    draw_clr = ((r & 0xff) << 8) | ((g & 0xff) << 16) | ((b & 0xff) << 24);
+#else
     draw_clr = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+#endif
 }
 
 bool genv::canvas::move_point(int x, int y)
