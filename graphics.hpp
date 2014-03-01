@@ -61,7 +61,7 @@ protected:
     int pt_x;
     int pt_y;
     SDL_Surface* buf;
-    int draw_clr;
+    unsigned draw_clr;
     bool transp;
     _TTF_Font* font;
     bool antialiastext;
