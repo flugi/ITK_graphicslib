@@ -24,10 +24,16 @@ namespace
         return *((Uint32*)screen->pixels + y * screen->w + x);
     }
 
-    inline void project(SDL_Surface* screen, int draw_clr, int x, int y, int val, int max)
+    inline void project(SDL_Surface* screen, unsigned draw_clr, int x, int y, int val, int max)
     {
         Uint32& pix = pixel(screen, x, y);
-        static const int c[] = {0, 8, 16};
+
+#ifdef __APPLE__
+        static const int c[] = { 24, 16, 8 };
+#else
+        static const int c[] = { 0, 8, 16 };
+#endif
+
         for (int i=0; i<3; ++i)
         {
             int col = ( ((pix >> c[i])      & 0xff) * (max-val) +
@@ -312,9 +318,16 @@ void genv::canvas::draw_text(const std::string& str)
     }
     else { // SDL_ttf
         // get color from draw_clr:
+#ifdef __APPLE__
+        int rc = (draw_clr >>  8) & 0xff,
+            gc = (draw_clr >> 16) & 0xff,
+            bc = (draw_clr >> 24) & 0xff;
+#else
         int rc = (draw_clr & 0xff0000) >> 16,
             gc = (draw_clr & 0x00ff00) >>  8,
             bc = (draw_clr & 0x0000ff);
+#endif
+
         SDL_Color text_clr = {rc, gc, bc};
         SDL_Surface* t;
         // render text in blended mode (AA)
