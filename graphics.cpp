@@ -63,7 +63,7 @@ namespace
             return mycode == 0 ? unicode : mycode;
         }
         else
-            return 0;
+            return sym;
     }
 
     Uint32 timer_event(Uint32 interval, void*)
