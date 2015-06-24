@@ -7,8 +7,10 @@
 #include <iostream>
 
 
+
 genv::groutput& genv::gout = genv::groutput::instance();
 genv::grinput& genv::gin = genv::grinput::instance();
+
 
 namespace
 {
@@ -121,9 +123,10 @@ genv::canvas::canvas(int w, int h) {
 
 genv::groutput::groutput()
 {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_JOYSTICK) < 0)
         exit(1);
     SDL_EnableUNICODE(1);
+    SDL_JoystickEventState(SDL_ENABLE);
     buf = 0;
     if (TTF_Init() < 0)
       exit(1);
@@ -407,6 +410,25 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             return *this;
         }
 
+        if(!SDL_JoystickOpened(0)){
+            SDL_Joystick *joy;
+            // Check for joystick
+            if(SDL_NumJoysticks()>0){
+                // Open joystick
+                joy=SDL_JoystickOpen(0);
+                if(joy){
+                    printf("Opened Joystick: 0\n");
+                    printf("Name: %s\n", SDL_JoystickName(0));
+                    printf("Number of Axes: %d\n", SDL_JoystickNumAxes(joy));
+                    printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(joy));
+                    printf("Number of Hats: %d\n", SDL_JoystickNumHats(joy));
+                }
+            }
+            else printf("Couldn't open Joystick 0\n");
+        }
+
+
+
         switch (se.type)
         {
             case SDL_QUIT:
@@ -440,6 +462,57 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 ev.time = se.user.code;
                 got = true;
                 break;
+            case SDL_JOYBUTTONUP:
+            case SDL_JOYBUTTONDOWN:
+                ev.type = controller;
+                ev.joy_btn = se.jbutton.button + 1;
+                ev.joy_btn *= (se.jbutton.state == SDL_RELEASED ? -1 : 1);
+                got = true;
+                break;
+
+            case SDL_JOYAXISMOTION:
+                ev.type = controller;
+                SDL_Joystick *joy;
+                joy=SDL_JoystickOpen(0);
+                int DEADZONE;
+                DEADZONE=8000;
+
+                if(SDL_JoystickGetAxis(joy, 0)<DEADZONE && SDL_JoystickGetAxis(joy, 0)> -DEADZONE&&SDL_JoystickGetAxis(joy, 1)<DEADZONE && SDL_JoystickGetAxis(joy, 1)> -DEADZONE)
+                {
+                    ev.move_lx = 0;
+                    ev.move_ly = 0;
+                }
+                else
+                {
+                    ev.move_lx = SDL_JoystickGetAxis(joy, 0)/128;
+                    ev.move_ly = SDL_JoystickGetAxis(joy, 1)/128;
+                }
+
+                if(SDL_JoystickGetAxis(joy, 3)<DEADZONE && SDL_JoystickGetAxis(joy, 3)> -DEADZONE&&SDL_JoystickGetAxis(joy, 4)<DEADZONE && SDL_JoystickGetAxis(joy, 4)> -DEADZONE)
+                {
+                    ev.move_ry = 0;
+                    ev.move_rx = 0;
+                }
+                else
+                {
+                    ev.move_ry = SDL_JoystickGetAxis(joy, 3)/128;
+                    ev.move_rx = SDL_JoystickGetAxis(joy, 4)/128;
+                }
+
+                if(SDL_JoystickGetAxis(joy,2) < 0){
+                    ev.trig_r=-1*SDL_JoystickGetAxis(joy, 2)/128;
+                }
+                if(SDL_JoystickGetAxis(joy,2) > 0){
+                    ev.trig_l=1+SDL_JoystickGetAxis(joy, 2)/128;
+                }
+                got = true;
+                break;
+            case SDL_JOYHATMOTION:
+                ev.type = controller;
+                ev.hat = se.jhat.value;
+                got = true;
+                break;
+
             default: ;
         }
     } while (!got);
@@ -490,4 +563,3 @@ int genv::canvas::twidth(const std::string& s) const
     TTF_SizeUTF8(font, s.c_str(), &w, &h);
     return w;
 }
-
