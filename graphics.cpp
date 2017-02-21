@@ -92,6 +92,7 @@ genv::canvas::canvas(const genv::canvas & c) {
     draw_clr = c.draw_clr;
     transp = c.transp;
     antialiastext = c.antialiastext;
+	buf=0;
 
     if (c.buf) {
         buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0);

@@ -3,7 +3,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <vector>
-
+#include <cmath>
 using namespace genv;
 using namespace std;
 
@@ -151,6 +151,28 @@ int main()
             gout << refresh;
         }
     }
+
+    gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255) << refresh;
+    vector<canvas> cv(10);
+    for (int i=0;i<cv.size();i++) {
+    	cv[i].open(100,100);
+    	for (int j=0;j<10;j++) {
+    		cv[i] << move_to(i*8,i*8) << line_to(100-j*7, j*7);
+    	}
+    	cv[i].transparent(true);
+    }
+    gin.timer(40);
+    while (gin>>ev && ev.keycode != key_escape) {
+    	if (ev.type == ev_timer) {
+	    	gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255);
+	    	for (int i=0; i<cv.size(); i++) {
+	    		gout << stamp(cv[i],X/2+sin(ev.time/1000.0+i)*X/3,Y/2+sin(ev.time/1200.0+i)*Y/3);
+	    	}
+	    	gout << refresh;
+    	}
+    }
+
+
 
     return 0;
 }
