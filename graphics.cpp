@@ -32,7 +32,7 @@ namespace
         {
             int col = ( ((pix >> c[i])      & 0xff) * (max-val) +
                         ((draw_clr >> c[i]) & 0xff) * val) / max;
-            pix = pix & (~(0xff << c[i])) | (col << c[i]);
+            pix = (pix & (~(0xff << c[i]))) | (col << c[i]);
         }
     }
 
@@ -86,7 +86,7 @@ genv::canvas::canvas() {
     set_color(255,255,255);
 }
 
-genv::canvas::canvas(const genv::canvas & c) {
+genv::canvas& genv::canvas::operator=(const genv::canvas& c) {
     pt_x=c.pt_x;
     pt_y=c.pt_y;
     draw_clr = c.draw_clr;
@@ -107,7 +107,13 @@ genv::canvas::canvas(const genv::canvas & c) {
     if (c.font) {
         load_font(c.loaded_font_file_name, c.font_size);
     }
+	return *this;
 
+}
+
+genv::canvas::canvas(const genv::canvas & c) {
+    //az esetek nagy részében nem jó ötlet másoló konstruktorban értékadást használni, mert érdemes kihasználni, hogy a : operátorral örökíthetőek a mező konstruktorok. Ez a kód refaktorálásra szorulhat a jövőben, ha sok mező konstruktor-lefutása megspórolható lehet, jelenleg nincs ilyen mező, ezért használhatunk értékadást érdemi lassulás nélkül
+	*this = c;
 }
 
 genv::canvas::canvas(int w, int h) {
@@ -140,6 +146,8 @@ genv::groutput::~groutput()
     SDL_Quit();
     TTF_Quit();
 }
+
+
 genv::canvas::~canvas() {
     if (buf) SDL_FreeSurface(buf);
     if (font) TTF_CloseFont(font);
@@ -313,7 +321,7 @@ void genv::canvas::draw_text(const std::string& str)
     }
     else { // SDL_ttf
         // get color from draw_clr:
-        int rc = (draw_clr & 0xff0000) >> 16,
+        unsigned char rc = (draw_clr & 0xff0000) >> 16,
             gc = (draw_clr & 0x00ff00) >>  8,
             bc = (draw_clr & 0x0000ff);
         SDL_Color text_clr = {rc, gc, bc};
@@ -334,7 +342,7 @@ void genv::canvas::draw_text(const std::string& str)
     }
 }
 
-void genv::canvas::blitfrom(const genv::canvas &c, int x1, int y1, int x2, int y2, int x3, int y3) {
+void genv::canvas::blitfrom(const genv::canvas &c, short x1, short y1, unsigned short x2, unsigned short y2, short x3, short y3) {
     if (x1==-1) x1=0;
     if (y1==-1) y1=0;
     if (x2==-1) x2=c.buf->w;

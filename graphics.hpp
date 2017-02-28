@@ -18,6 +18,7 @@ public:
     virtual ~canvas();
     canvas(int w, int h);
     canvas(const canvas & c);
+	genv::canvas& operator=(const genv::canvas &c);
     bool open(unsigned width, unsigned height);
     bool save(const std::string& file) const;
     void transparent(bool t) {transp=t;}
@@ -27,7 +28,7 @@ public:
     void draw_line(int x, int y);
     void draw_box(int x, int y);
     void draw_text(const std::string& str);
-    void blitfrom(const canvas &c,int x1,int y1, int x2, int y2, int x3, int y3);
+    void blitfrom(const canvas &c, short x1, short y1, unsigned short x2, unsigned short y2, short x3, short y3);
 
     bool load_font(const std::string& fname, int fontsize = 16, bool antialias=true);
     void set_antialias(bool antialias) {antialiastext=antialias;}
@@ -58,8 +59,8 @@ protected:
 	if (a<0) return -1; if (a>0) return 1; return 0;
     }
 
-    int pt_x;
-    int pt_y;
+    short pt_x;
+    short pt_y;
     SDL_Surface* buf;
     int draw_clr;
     bool transp;
