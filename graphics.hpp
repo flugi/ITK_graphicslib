@@ -6,7 +6,6 @@
 struct SDL_Surface;
 struct _TTF_Font;
 
-
 namespace genv
 {
 
@@ -80,7 +79,6 @@ class groutput : public canvas
 public:
     static groutput& instance();
     virtual ~groutput();
-
     void showmouse(bool toggle);
     void movemouse(int x, int y);
     bool open(unsigned width, unsigned height, bool fullscreen=false);
@@ -221,9 +219,18 @@ enum button_t {
     btn_left = 1, btn_middle, btn_right, btn_wheelup, btn_wheeldown
 };
 
-enum event_type {
-    ev_key = 1, ev_mouse, ev_timer
+enum controller_t{
+ jbutton_a=1, jbutton_b, jbutton_x, jbutton_y, jbutton_lb, jbutton_rb, jbutton_back, jbutton_start, jbutton_left_click, jbutton_right_click
 };
+
+enum hat_t{
+hat_up=1,hat_right,hat_rup,hat_down,hat_rdown=6,hat_left=8,hat_lup,hat_ldown=12
+};
+
+enum event_type {
+    ev_key = 1, ev_mouse, ev_timer, controller
+};
+
 
 // Event descriptor
 struct event
@@ -233,6 +240,10 @@ struct event
     int button;
     int time;
     int type;
+    int joy_btn;
+    int move_rx, move_ry, move_lx, move_ly;
+    int trig_l, trig_r;
+    int hat;
 
 };
 
@@ -262,4 +273,4 @@ inline grinput& operator >> (grinput& inp, event& ev)
 
 }
 
-#endif // GRAPHICS_HPP_INCLUDED
+#endif
