@@ -20,6 +20,7 @@ string to_str(const T& a) {
 int main()
 {
     gout.open(X, Y);
+	gout.set_title("asd");
     gout << move_to(10,10) << color(255,255,255) << box(X-20,Y-20);
     event ev;
     gin.timer(1000);
@@ -34,6 +35,7 @@ int main()
     gout << move_to(20,20 + lineh) << color(0,0,0) << text(out.str());
     if (!gout.load_font("LiberationSans-Regular.ttf", 16))
     {
+		gout.message("nincs meg a font");
         cout << "Font megnyitasa sikertelen! Ellenorizd az eleresi utat!\n";
         cout << "download: http://users.itk.ppke.hu/~flugi/bevprog2_1112/graph/Fonts.zip";
         return 1;
@@ -147,7 +149,7 @@ int main()
         if (ev.type == ev_key) {
             gout << stamp(gout, 0,0,X,Y-40, 0, 40);
             gout << color(0,0,0) << move_to(0,0) << box(X,40) << color(255,255,255);
-            gout << move_to(30,20) << text(to_str(ev.keycode));
+            gout << move_to(30,20) << text(to_str(ev.keycode)) << genv::move(10,0) << text(ev.keyname);
             gout << refresh;
         }
     }

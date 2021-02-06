@@ -57,7 +57,9 @@ protected:
 
     template <typename T>
     inline int sgn(const T& a) {
-	if (a<0) return -1; if (a>0) return 1; return 0;
+		if (a<0) return -1; 
+		if (a>0) return 1; 
+		return 0;
     }
 
     short pt_x;
@@ -87,6 +89,7 @@ public:
     bool open(unsigned width, unsigned height, bool fullscreen=false);
     virtual void refresh();
 	void set_title(const std::string& title);
+	void message(std::string errortext);
 
 private:
 	SDL_Window * window;
@@ -236,6 +239,7 @@ struct event
     int button;
     int time;
     int type;
+	std::string keyname;
 
 };
 

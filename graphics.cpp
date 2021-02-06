@@ -204,9 +204,13 @@ bool genv::canvas::save(const std::string& file) const
 
 void genv::groutput::set_title(const std::string& title) {
 //	SDL_WM_SetCaption(title.c_str(),0);//SDL1.2
-	//TODOsdl2
+	SDL_SetWindowTitle(window, title.c_str());
+
 }
 
+void genv::groutput::message(std::string errortext) {
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Message",errortext.c_str(),NULL);
+}
 
 void genv::canvas::set_color(int r, int g, int b)
 {
@@ -300,6 +304,7 @@ void genv::canvas::draw_box(int x, int y)
 
 void genv::canvas::draw_text(const std::string& str)
 {
+	if (str=="") return;
     if (font == 0) {
         int left = pt_x;
         if (pt_y - cascent() < 0 || pt_y + cdescent() >= buf->h)
@@ -448,6 +453,7 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 ev.type = ev_key;
                 ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
                 ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
+				ev.keyname = SDL_GetKeyName(SDL_GetKeyFromScancode(se.key.keysym.scancode));
                 got = ev.keycode != 0;
                 break;
             case SDL_MOUSEBUTTONDOWN:
@@ -461,6 +467,13 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 break;
             case SDL_MOUSEMOTION:
                 ev.type = ev_mouse;
+                ev.pos_x = se.motion.x;
+                ev.pos_y = se.motion.y;
+                got = true;
+                break;
+            case SDL_MOUSEWHEEL:
+                ev.type = ev_mouse;
+                ev.button = se.wheel.y>0?btn_wheelup:btn_wheeldown;
                 ev.pos_x = se.motion.x;
                 ev.pos_y = se.motion.y;
                 got = true;
