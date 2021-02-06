@@ -2,19 +2,12 @@ cmake_minimum_required( VERSION 2.6 )
 
 project( ITK_graphicslib )
 
-find_package( SDL REQUIRED )
-find_package( SDL_ttf REQUIRED )
-
-if (NOT SDLTTF_FOUND)
-  message ( FATAL_ERROR "SDL_ttf not found!" )
-endif ()
-
+find_package( SDL2 REQUIRED )
 
 
 link_libraries (
-  ${SDL_LIBRARY}
-  ${SDLTTF_LIBRARY}
-  SDLmain
+  SDL2
+  SDL2_ttf
 )
 
 add_library( graphics graphics.cpp )

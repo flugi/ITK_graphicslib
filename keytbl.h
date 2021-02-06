@@ -26,17 +26,17 @@ int keysym_tbl[][2] = {
     {SDLK_F13,      genv::key_f13},
     {SDLK_F14,      genv::key_f14},
     {SDLK_F15,      genv::key_f15},
-    {SDLK_NUMLOCK,  genv::key_numl},
+//    {SDLK_NUMLOCK,  genv::key_numl},
     {SDLK_CAPSLOCK, genv::key_capsl},
-    {SDLK_SCROLLOCK,genv::key_scrl},
+//    {SDLK_SCROLLOCK,genv::key_scrl},
     {SDLK_RSHIFT,   genv::key_lshift},
     {SDLK_LSHIFT,   genv::key_rshift},
     {SDLK_RCTRL,    genv::key_rctrl},
     {SDLK_LCTRL,    genv::key_lctrl},
     {SDLK_RALT,     genv::key_ralt},
     {SDLK_LALT,     genv::key_lalt},
-    {SDLK_LSUPER,   genv::key_lwin},
-    {SDLK_RSUPER,   genv::key_rwin},
+  //  {SDLK_LSUPER,   genv::key_lwin},
+  //  {SDLK_RSUPER,   genv::key_rwin},
     {SDLK_MENU,     genv::key_menu}
 };
 pairptr keysym_end = keysym_tbl + sizeof(keysym_tbl)/sizeof(keysym_tbl[0]);

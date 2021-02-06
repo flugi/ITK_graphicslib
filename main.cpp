@@ -23,12 +23,6 @@ int main()
     gout << move_to(10,10) << color(255,255,255) << box(X-20,Y-20);
     event ev;
     gin.timer(1000);
-    if (!gout.load_font("LiberationSans-Regular.ttf", 16))
-    {
-        cout << "Font megnyitasa sikertelen! Ellenorizd az eleresi utat!\n";
-        cout << "download: http://users.itk.ppke.hu/~flugi/bevprog2_1112/graph/Fonts.zip";
-        return 1;
-    }
     string szoveg = "Árvíztűrő tükörfúrógép";
     int w = gout.twidth(szoveg);
     stringstream out;
@@ -38,6 +32,12 @@ int main()
 
     gout << move_to(20,20) << color(0,0,0) << text("Kiírandó szöveg: " + szoveg);
     gout << move_to(20,20 + lineh) << color(0,0,0) << text(out.str());
+    if (!gout.load_font("LiberationSans-Regular.ttf", 16))
+    {
+        cout << "Font megnyitasa sikertelen! Ellenorizd az eleresi utat!\n";
+        cout << "download: http://users.itk.ppke.hu/~flugi/bevprog2_1112/graph/Fonts.zip";
+        return 1;
+    }
     gout << move_to(20,20 + lineh*2) << text("Szöveg, alatta (ascent+descent) vonal:");
     gout << move_to(40,20 + lineh*3) << color(10,150,10) << text(szoveg);
     gout << move_to(40,20 + lineh*3 + fonth) << color(255,0,0) << line(w,0);

@@ -1,6 +1,6 @@
 #include "graphics.hpp"
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include <cstdlib>
 #include <algorithm>
@@ -52,7 +52,7 @@ namespace
         return 0;
     }
 
-    int mkkeycode(SDLKey sym, Uint16 unicode)
+    int mkkeycode(SDL_Keycode sym, Uint16 unicode)
     {
         int mysym = findkey(keysym_tbl, keysym_end, sym);
         if (mysym != 0)
@@ -95,7 +95,8 @@ genv::canvas& genv::canvas::operator=(const genv::canvas& c) {
 	buf=0;
 
     if (c.buf) {
-        buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0);
+//        buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, c.buf->w, c.buf->h, 32,0,0,0,0); //SDL1.2
+		buf = SDL_CreateRGBSurface(0, c.buf->w, c.buf->h, 32, 0,0,0,0);
         SDL_Rect trg;
         trg.x = 0;
         trg.y = 0;
@@ -130,10 +131,11 @@ genv::groutput::groutput()
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
         exit(1);
-    SDL_EnableUNICODE(1);
+//    SDL_EnableUNICODE(1); //SDL1.2 code
     buf = 0;
     if (TTF_Init() < 0)
       exit(1);
+      
 }
 
 genv::groutput::~groutput()
@@ -156,7 +158,8 @@ genv::canvas::~canvas() {
 bool genv::canvas::open(unsigned width, unsigned height)
 {
     if (buf) SDL_FreeSurface(buf);
-    buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, width, height, 32,0,0,0,0);
+//    buf = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCCOLORKEY, width, height, 32,0,0,0,0); //SDL1.2
+    buf = SDL_CreateRGBSurface(0, width, height, 32,0,0,0,0);
     pt_x = width/2;
     pt_y = height/2;
     return buf != 0;
@@ -164,11 +167,18 @@ bool genv::canvas::open(unsigned width, unsigned height)
 
 bool genv::groutput::open(unsigned width, unsigned height, bool fullscreen)
 {
+	buf = SDL_CreateRGBSurface(0, width, height, 32,0,0,0,0);
     if (fullscreen) {
-        buf = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+//        buf = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN); //SDL1.2
+		window = SDL_CreateWindow("Graphics",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,SDL_WINDOW_FULLSCREEN);
+
     } else {
-        buf = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
+ //       buf = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);//SDL1.2
+		window = SDL_CreateWindow("Graphics",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,0);
+		SDL_SetWindowResizable(window,SDL_TRUE);
+
     }
+    renderer = SDL_CreateRenderer(window,-1,0);
     pt_x = width/2;
     pt_y = height/2;
     return buf != 0;
@@ -182,7 +192,9 @@ void genv::groutput::showmouse(bool toggle) {
         SDL_ShowCursor(SDL_DISABLE);
 }
 void genv::groutput::movemouse(int x, int y) {
-    SDL_WarpMouse(x, y);
+   // SDL_WarpMouse(x, y);//SDL1.2
+	SDL_WarpMouseInWindow(window,x,y);
+
 }
 
 bool genv::canvas::save(const std::string& file) const
@@ -191,7 +203,8 @@ bool genv::canvas::save(const std::string& file) const
 }
 
 void genv::groutput::set_title(const std::string& title) {
-	SDL_WM_SetCaption(title.c_str(),0);
+//	SDL_WM_SetCaption(title.c_str(),0);//SDL1.2
+	//TODOsdl2
 }
 
 
@@ -319,7 +332,9 @@ void genv::canvas::draw_text(const std::string& str)
             }
         }
     }
-    else { // SDL_ttf
+    else { 
+		
+		// SDL_ttf
         // get color from draw_clr:
         unsigned char rc = (draw_clr & 0xff0000) >> 16,
             gc = (draw_clr & 0x00ff00) >>  8,
@@ -350,7 +365,7 @@ void genv::canvas::blitfrom(const genv::canvas &c, short x1, short y1, unsigned 
     SDL_Rect sr={x1,y1,x2,y2};
     SDL_Rect tr={x3,y3,x2,y2};
     if (c.transp) {
-        SDL_SetColorKey(c.buf, SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(c.buf->format, 0, 0 ,0));
+        SDL_SetColorKey(c.buf, SDL_TRUE|SDL_RLEACCEL,SDL_MapRGB(c.buf->format, 0, 0 ,0));
     }
     SDL_BlitSurface(c.buf, &sr, buf, &tr);
 }
@@ -370,12 +385,18 @@ bool genv::canvas::load_font(const std::string& fname, int fontsize, bool antial
   loaded_font_file_name=fname;
   font_size=fontsize;
   antialiastext=antialias;
+  
   return true;
 }
 
 void genv::groutput::refresh()
 {
-    SDL_Flip(buf);
+    //SDL_Flip(buf);//SDL1.2
+	SDL_Texture * sftx = SDL_CreateTextureFromSurface(renderer,buf);
+	SDL_RenderCopy(renderer,sftx,0,0);
+	SDL_DestroyTexture(sftx);
+	SDL_RenderPresent(renderer);
+
 }
 
 genv::groutput& genv::groutput::instance()
@@ -425,7 +446,7 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             case SDL_KEYUP:
             case SDL_KEYDOWN:
                 ev.type = ev_key;
-                ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.unicode);
+                ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
                 ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
                 got = ev.keycode != 0;
                 break;
@@ -498,5 +519,6 @@ int genv::canvas::twidth(const std::string& s) const
     int w,h;
     TTF_SizeUTF8(font, s.c_str(), &w, &h);
     return w;
+	
 }
 

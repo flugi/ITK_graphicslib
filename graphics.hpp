@@ -4,8 +4,9 @@
 #include <string>
 
 struct SDL_Surface;
+struct SDL_Window;
 struct _TTF_Font;
-
+struct SDL_Renderer;
 
 namespace genv
 {
@@ -88,6 +89,8 @@ public:
 	void set_title(const std::string& title);
 
 private:
+	SDL_Window * window;
+	SDL_Renderer* renderer;
     groutput();
 };
 
