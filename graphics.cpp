@@ -135,7 +135,7 @@ genv::groutput::groutput()
     buf = 0;
     if (TTF_Init() < 0)
       exit(1);
-      
+
 }
 
 genv::groutput::~groutput()
@@ -337,8 +337,8 @@ void genv::canvas::draw_text(const std::string& str)
             }
         }
     }
-    else { 
-		
+    else {
+
 		// SDL_ttf
         // get color from draw_clr:
         unsigned char rc = (draw_clr & 0xff0000) >> 16,
@@ -390,7 +390,7 @@ bool genv::canvas::load_font(const std::string& fname, int fontsize, bool antial
   loaded_font_file_name=fname;
   font_size=fontsize;
   antialiastext=antialias;
-  
+
   return true;
 }
 
@@ -448,14 +448,23 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 quit = true;
                 got = true;
                 break;
+            case SDL_TEXTINPUT:
+                /* Add new text onto the end of our text */
+                {
+                    char c = *se.text.text;
+                    ev.keycode = c;
+                }
+                got = true;
+                break;
             case SDL_KEYUP:
             case SDL_KEYDOWN:
                 ev.type = ev_key;
                 ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
                 ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
 				ev.keyname = SDL_GetKeyName(SDL_GetKeyFromScancode(se.key.keysym.scancode));
-                got = ev.keycode != 0;
+                got = ev.keyname.length()>1; // HACK: single character named keys should be textinput, but maybe not always..
                 break;
+
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
                 ev.type = ev_mouse;
@@ -496,6 +505,11 @@ genv::grinput& genv::grinput::instance()
     return single_inst;
 }
 
+void genv::grinput::textmode(bool on) {
+    if (on) SDL_StartTextInput();
+    else SDL_StopTextInput();
+}
+
 int genv::canvas::cascent() const
 {
     if (font == 0)
@@ -532,6 +546,6 @@ int genv::canvas::twidth(const std::string& s) const
     int w,h;
     TTF_SizeUTF8(font, s.c_str(), &w, &h);
     return w;
-	
+
 }
 

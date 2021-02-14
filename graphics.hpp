@@ -57,8 +57,8 @@ protected:
 
     template <typename T>
     inline int sgn(const T& a) {
-		if (a<0) return -1; 
-		if (a>0) return 1; 
+		if (a<0) return -1;
+		if (a>0) return 1;
 		return 0;
     }
 
@@ -254,9 +254,9 @@ public:
 
     operator const void*() const
     { if (quit) return 0; else return this; }
-
+    void textmode(bool on);
 private:
-    grinput() : quit(false) {}
+    grinput() : quit(false) {textmode(true);}
     bool quit;
 };
 

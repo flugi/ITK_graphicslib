@@ -149,7 +149,7 @@ int main()
         if (ev.type == ev_key) {
             gout << stamp(gout, 0,0,X,Y-40, 0, 40);
             gout << color(0,0,0) << move_to(0,0) << box(X,40) << color(255,255,255);
-            gout << move_to(30,20) << text(to_str(ev.keycode)) << genv::move(10,0) << text(ev.keyname);
+            gout << move_to(30,20) << text(to_str(ev.keycode)) << genv::move(10,0) << text(ev.keyname) << genv::move(10,0) << text(string("")+char(ev.keycode));
             gout << refresh;
         }
     }
