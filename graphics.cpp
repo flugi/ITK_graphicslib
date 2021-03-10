@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <algorithm>
+#include <map>
 #include <iostream>
 
 
@@ -65,6 +66,49 @@ namespace
         else
             return sym;
     }
+    const std::map<std::string, int> keycodes({
+        {"Up",genv::keycode_t::key_up},
+        {"Down",genv::keycode_t::key_down},
+        {"Left",genv::keycode_t::key_left},
+        {"Right",genv::keycode_t::key_right},
+        {"Escape",genv::keycode_t::key_escape},
+        {"Tab",genv::keycode_t::key_tab},
+        {"Backspace",genv::keycode_t::key_backspace},
+        {"Return",genv::keycode_t::key_enter},
+        {"Insert",genv::keycode_t::key_insert},
+        {"Delete",genv::keycode_t::key_delete},
+        {"Home",genv::keycode_t::key_home},
+        {"End",genv::keycode_t::key_end},
+        {"PageUp",genv::keycode_t::key_pgup},
+        {"PageDown",genv::keycode_t::key_pgdn},
+        {"Left Ctrl",genv::keycode_t::key_lctrl},
+        {"Left Shift",genv::keycode_t::key_lshift},
+        {"Left Alt",genv::keycode_t::key_lalt},
+        {"Right Ctrl",genv::keycode_t::key_rctrl},
+        {"Right Shift",genv::keycode_t::key_rshift},
+        {"Right Alt",genv::keycode_t::key_ralt},
+        {"Left Windows",genv::keycode_t::key_lwin},
+        {"Right Windows",genv::keycode_t::key_rwin},
+        {"Menu",genv::keycode_t::key_menu},
+        {"Numlock",genv::keycode_t::key_numl},
+        {"CapsLock",genv::keycode_t::key_capsl},
+        {"ScrollLock",genv::keycode_t::key_scrl},
+        {"F1",genv::keycode_t::key_f1},
+        {"F2",genv::keycode_t::key_f2},
+        {"F3",genv::keycode_t::key_f3},
+        {"F4",genv::keycode_t::key_f4},
+        {"F5",genv::keycode_t::key_f5},
+        {"F6",genv::keycode_t::key_f6},
+        {"F7",genv::keycode_t::key_f7},
+        {"F8",genv::keycode_t::key_f8},
+        {"F9",genv::keycode_t::key_f9},
+        {"F10",genv::keycode_t::key_f10},
+        {"F11",genv::keycode_t::key_f11},
+        {"F12",genv::keycode_t::key_f12},
+        {"F13",genv::keycode_t::key_f13},
+        {"F14",genv::keycode_t::key_f14},
+        {"F15",genv::keycode_t::key_f15}
+        });
 
     Uint32 timer_event(Uint32 interval, void*)
     {
@@ -352,6 +396,7 @@ void genv::canvas::draw_text(const std::string& str)
         } else {
             t = TTF_RenderUTF8_Solid(font, str.c_str(), text_clr);
         }
+        if (!t) return;
         SDL_Rect offset;
         offset.x = pt_x;
         offset.y = pt_y;
@@ -459,10 +504,19 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             case SDL_KEYUP:
             case SDL_KEYDOWN:
                 ev.type = ev_key;
-                ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
-                ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
+                //ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
 				ev.keyname = SDL_GetKeyName(SDL_GetKeyFromScancode(se.key.keysym.scancode));
-                got = ev.keyname.length()>1; // HACK: single character named keys should be textinput, but maybe not always..
+				if (keycodes.find(ev.keyname)!=keycodes.end()) {
+                    ev.keycode = keycodes.at(ev.keyname);
+                    //std::cout <<"* " ;
+                    got=true;
+				} else {
+				    ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
+				}
+                ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
+                //std::cout << ev.keycode << std::endl;
+
+                if (!got)got = ev.keyname.length()>1; // HACK: single character named keys should be textinput, but maybe not always..
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
