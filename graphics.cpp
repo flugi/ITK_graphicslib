@@ -470,9 +470,17 @@ void genv::grinput::timer(int wait)
     }
 }
 
+int utf8charcount(std::string str) {
+    char * s = &(str[0]);
+    int len = 0;
+    while (*s) len += (*s++ & 0xc0) != 0x80;
+    return len;
+}
+
 genv::grinput& genv::grinput::wait_event(event& ev)
 {
     static event nullev = { 0, 0, 0, 0, 0 };
+    static int lastx, lasty;
     ev = nullev;
     if (quit)
         return *this;
@@ -515,8 +523,8 @@ genv::grinput& genv::grinput::wait_event(event& ev)
 				}
                 ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
                 //std::cout << ev.keycode << std::endl;
-
-                if (!got)got = ev.keyname.length()>1; // HACK: single character named keys should be textinput, but maybe not always..
+                //std::cout << ev.keyname.length() << " " << charcount(ev.keyname) << std::endl;
+                if (!got)got = utf8charcount(ev.keyname)>1; // HACK: single character named keys should be textinput, but maybe not always..
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
@@ -526,19 +534,23 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 ev.button *= (se.button.state == SDL_RELEASED ? -1 : 1);
                 ev.pos_x = se.button.x;
                 ev.pos_y = se.button.y;
+                lastx = se.button.x;
+                lasty = se.button.y;
                 got = true;
                 break;
             case SDL_MOUSEMOTION:
                 ev.type = ev_mouse;
                 ev.pos_x = se.motion.x;
                 ev.pos_y = se.motion.y;
+                lastx=se.motion.x;
+                lasty=se.motion.y;
                 got = true;
                 break;
             case SDL_MOUSEWHEEL:
                 ev.type = ev_mouse;
                 ev.button = se.wheel.y>0?btn_wheelup:btn_wheeldown;
-                ev.pos_x = se.motion.x;
-                ev.pos_y = se.motion.y;
+                ev.pos_x = lastx;
+                ev.pos_y = lasty;
                 got = true;
                 break;
             case SDL_USEREVENT:
