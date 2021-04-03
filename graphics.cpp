@@ -504,14 +504,17 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             case SDL_TEXTINPUT:
                 /* Add new text onto the end of our text */
                 {
-                    char c = *se.text.text;
-                    ev.keycode = c;
+                    std::string c = se.text.text;
+					//std::cout << c << std::endl;
+                    ev.keycode = c[0];
+					ev.keyutf8 = c;
                 }
                 got = true;
                 break;
             case SDL_KEYUP:
             case SDL_KEYDOWN:
                 ev.type = ev_key;
+				ev.keyutf8="";
                 //ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
 				ev.keyname = SDL_GetKeyName(SDL_GetKeyFromScancode(se.key.keysym.scancode));
 				if (keycodes.find(ev.keyname)!=keycodes.end()) {

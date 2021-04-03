@@ -240,6 +240,7 @@ struct event
     int time;
     int type;
 	std::string keyname;
+	std::string keyutf8;
 
 };
 
