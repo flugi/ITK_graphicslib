@@ -2,6 +2,7 @@
 #define GRAPHICS_HPP_INCLUDED
 
 #include <string>
+#include <vector>
 
 struct SDL_Surface;
 struct SDL_Window;
@@ -267,6 +268,9 @@ extern grinput& gin;
 // Event reader operator
 inline grinput& operator >> (grinput& inp, event& ev)
 { return inp.wait_event(ev); }
+
+std::vector<int> utf8_character_index(std::string str);
+std::vector<std::string> utf8_character_split(std::string str) ;
 
 }
 

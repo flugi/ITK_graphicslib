@@ -145,7 +145,7 @@ int main()
     }
 
     gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255) << refresh;
-		string str="__";
+		string str="abc";
     while (gin>>ev && ev.keycode != key_escape) {
         if (ev.type == ev_key) {
 			str+=ev.keyutf8;
@@ -154,17 +154,33 @@ int main()
 			}
 			*/
 //			std::cout << std::endl;
-			if (ev.keycode==key_backspace) {
-				str=str.substr(0,str.length()-1);
+			vector<int> index = utf8_character_index(str);
+			vector<string> chars = utf8_character_split(str);
+			if (ev.keycode==key_backspace && str!="") {
+				str=str.substr(0,index[index.size()-2]);
+				index = utf8_character_index(str);
+				chars = utf8_character_split(str);
 			}
 //			std::cout << ev.keycode << endl;
 //			std::cout << str << endl;
             gout << stamp(gout, 0,0,X,Y-40, 0, 40);
             gout << color(0,0,0) << move_to(0,0) << box(X,40) << color(255,255,255);
-            gout << move_to(30,20) << text(to_str(ev.keycode)) << genv::move(10,0) << text(ev.keyname) << genv::move(10,0) << text(string("")+char(ev.keycode));
-            gout << color(0,0,0) << move_to(0,Y-40) << box(X,40) << color(255,255,255);
+            gout << move_to(30,20) << text(to_str(ev.keycode)) << genv::move_to(150,20) << text(ev.keyname) << genv::move_to(300,20) << text(string("")+char(ev.keycode)) << genv::move_to(350,20) << text(ev.keyutf8); 
+            gout << color(0,0,0) << move_to(0,Y-80) << box(X,80) << color(255,255,255);
 
-			gout << move_to(0,Y-30) <<color(255,255,255)<< text(str);
+			gout << move_to(0,Y-70) <<color(255,255,255)<< text(str);
+			//for (int a : index) {
+			//	std::cout << a << " ";
+			//}
+			//std::cout<<std::endl;
+			gout << move_to(0,Y-50) << color(127,255,255);
+			for (size_t i=0;i<index.size()-1;i++) {
+				gout << text(str.substr(index[i],index[i+1]-index[i]));
+			}
+			gout << move_to(0,Y-30) << color(255,127,255);
+			for (size_t i=0;i<index.size()-1;i++) {
+				gout << text(chars[i]);
+			}
             gout << refresh;
         }
     }

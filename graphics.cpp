@@ -477,6 +477,34 @@ int utf8charcount(std::string str) {
     return len;
 }
 
+std::vector<int> genv::utf8_character_index(std::string str) {
+	std::vector<int> res;
+    for (size_t i=0;i<str.length();i++) { 
+		res.push_back(i);
+		while ( (str[i+1] & 0xc0) == 0x80) {
+			i++;
+		}
+	}
+	res.push_back(str.length());
+	return res;
+}
+
+std::vector<std::string> genv::utf8_character_split(std::string str) {
+	std::vector<std::string> res;
+    for (size_t i=0;i<str.length();i++) { 
+		int len=0;
+		do{
+			len++;
+		} while( (str[i+len] & 0xc0) == 0x80) ;
+		res.push_back(str.substr(i,len));
+		i+=len-1;
+		
+	}
+	
+	return res;
+	
+}
+
 genv::grinput& genv::grinput::wait_event(event& ev)
 {
     static event nullev = { 0, 0, 0, 0, 0 };
@@ -528,7 +556,8 @@ genv::grinput& genv::grinput::wait_event(event& ev)
                 //std::cout << ev.keycode << std::endl;
                 //std::cout << ev.keyname.length() << " " << charcount(ev.keyname) << std::endl;
                 if (!got)got = utf8charcount(ev.keyname)>1; // HACK: single character named keys should be textinput, but maybe not always..
-                break;
+                if (ev.keycode == key_space) ev.keyutf8=" "; //convenience function. Enter and Tab does not render well with current setup, so only space is supported here.
+				break;
 
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
