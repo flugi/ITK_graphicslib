@@ -481,7 +481,7 @@ std::vector<int> genv::utf8_character_index(std::string str) {
 	std::vector<int> res;
     for (size_t i=0;i<str.length();i++) { 
 		res.push_back(i);
-		while ( (str[i+1] & 0xc0) == 0x80) {
+		while ( (str[i+1] & 0xc0) == 0x80) { //c++11: all strings are null terminated
 			i++;
 		}
 	}
@@ -495,7 +495,7 @@ std::vector<std::string> genv::utf8_character_split(std::string str) {
 		int len=0;
 		do{
 			len++;
-		} while( (str[i+len] & 0xc0) == 0x80) ;
+		} while( (str[i+len] & 0xc0) == 0x80) ;  //c++11: all strings are null terminated
 		res.push_back(str.substr(i,len));
 		i+=len-1;
 		
