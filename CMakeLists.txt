@@ -15,5 +15,5 @@ add_executable( test_graphics main.cpp )
 
 
 
-target_link_libraries( test_graphics graphics )
+target_link_libraries( test_graphics graphics pthread)
 

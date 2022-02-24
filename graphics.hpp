@@ -30,6 +30,10 @@ public:
     void draw_line(int x, int y);
     void draw_box(int x, int y);
     void draw_text(const std::string& str);
+    void line(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);
+    void dot(int x, int y, unsigned char r, unsigned char g, unsigned char b) {
+        memorybuf[y*memorypitch + x]=(b+256*g+65536*r);
+    }
     void blitfrom(const canvas &c, short x1, short y1, unsigned short x2, unsigned short y2, short x3, short y3);
 
     bool load_font(const std::string& fname, int fontsize = 16, bool antialias=true);
@@ -72,6 +76,9 @@ protected:
     bool antialiastext;
     std::string loaded_font_file_name;
     int font_size;
+
+    int * memorybuf=0;
+    int memorypitch=0;
 
 };
 
@@ -156,6 +163,7 @@ struct line
     void operator () (canvas& out)
     { out.call_with_rel(&canvas::draw_line,vec_x, vec_y); }
 };
+
 
 struct line_to
 {
