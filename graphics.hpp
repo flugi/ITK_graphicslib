@@ -30,7 +30,7 @@ public:
     void draw_line(int x, int y);
     void draw_box(int x, int y);
     void draw_text(const std::string& str);
-    void blitfrom(const canvas &c, short x1, short y1, unsigned short x2, unsigned short y2, short x3, short y3);
+    void blitfrom(const canvas &c, short x1, short y1, int x2, int y2, short x3, short y3);
 
     bool load_font(const std::string& fname, int fontsize = 16, bool antialias=true);
     void set_antialias(bool antialias) {antialiastext=antialias;}
@@ -255,9 +255,12 @@ public:
     void timer(int wait);
 
     operator const void*() const
-    { if (quit) return 0; else return this; }
-    void textmode(bool on);
+    { 
+        if (quit) return 0; 
+            else 
+        return this; }
 private:
+    void textmode(bool on);
     grinput() : quit(false) {textmode(true);}
     bool quit;
 };
@@ -270,7 +273,15 @@ inline grinput& operator >> (grinput& inp, event& ev)
 { return inp.wait_event(ev); }
 
 std::vector<int> utf8_character_index(std::string str);
+
 std::vector<std::string> utf8_character_split(std::string str) ;
+
+inline std::string utf8_remove_last(std::string str) {
+    if (str=="") 
+        return "";
+    std::vector<int> v = utf8_character_index(str);
+    return str.substr(0,v.at(v.size()-2));
+}
 
 }
 

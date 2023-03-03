@@ -407,7 +407,7 @@ void genv::canvas::draw_text(const std::string& str)
     }
 }
 
-void genv::canvas::blitfrom(const genv::canvas &c, short x1, short y1, unsigned short x2, unsigned short y2, short x3, short y3) {
+void genv::canvas::blitfrom(const genv::canvas &c, short x1, short y1, int x2, int y2, short x3, short y3) {
     if (x1==-1) x1=0;
     if (y1==-1) y1=0;
     if (x2==-1) x2=c.buf->w;
@@ -543,16 +543,17 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             case SDL_KEYDOWN:
                 ev.type = ev_key;
 				ev.keyutf8="";
-                //ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
+                ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
 				ev.keyname = SDL_GetKeyName(SDL_GetKeyFromScancode(se.key.keysym.scancode));
 				if (keycodes.find(ev.keyname)!=keycodes.end()) {
                     ev.keycode = keycodes.at(ev.keyname);
                     //std::cout <<"* " ;
-                    got=true;
-				} else {
+                  got=true;
+  				} else {
 				    ev.keycode = mkkeycode(se.key.keysym.sym, se.key.keysym.sym);
 				}
                 ev.keycode *= (se.type == SDL_KEYUP ? -1 : 1);
+                    if (ev.keycode < 0) got = true; // hack: positive values are catched as textinput
                 //std::cout << ev.keycode << std::endl;
                 //std::cout << ev.keyname.length() << " " << charcount(ev.keyname) << std::endl;
                 if (!got)got = utf8charcount(ev.keyname)>1; // HACK: single character named keys should be textinput, but maybe not always..
@@ -607,6 +608,7 @@ void genv::grinput::textmode(bool on) {
     if (on) SDL_StartTextInput();
     else SDL_StopTextInput();
 }
+
 
 int genv::canvas::cascent() const
 {
