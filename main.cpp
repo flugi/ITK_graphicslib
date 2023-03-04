@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <vector>
 #include <cmath>
+#include <thread>
 using namespace genv;
 using namespace std;
 
@@ -204,7 +205,32 @@ int main()
 	    	gout << refresh;
     	}
     }
+    gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255) << refresh;
+    bool stop=false;
+    std::thread thr([&](){
+        int j=0;    
+        while(!stop) {
+            j++;            
+            gout.dot(sin(j/10000.0)*sin(j/1000000.0)*X/6+X/2,cos(j/10000.0)*Y/6+Y/2,j,j,j);
+        }
+    });
+    thr.detach();
 
+    std::thread thr2([&](){
+        int j=0;    
+        while(!stop) {
+            j++;            
+            gout.dot(sin(j/10000.0)*sin(j/1000000.0)*X/6+X/2+X/6,cos(j/10000.0)*Y/7+Y/2,255-j,255-j,j);
+        }
+    });
+    thr2.detach();
+    
+    while (gin>>ev && ev.keycode != key_escape) {
+        if (ev.type==ev_timer) {
+            gout << refresh;
+        }
+    }
+    stop=true;
 
 
     return 0;

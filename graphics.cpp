@@ -168,6 +168,7 @@ genv::canvas::canvas(int w, int h) {
     transp=0;
     set_color(255,255,255);
     open(w,h);
+    memorybuf=0;
 }
 
 
@@ -206,6 +207,10 @@ bool genv::canvas::open(unsigned width, unsigned height)
     buf = SDL_CreateRGBSurface(0, width, height, 32,0,0,0,0);
     pt_x = width/2;
     pt_y = height/2;
+    if (buf) {
+        memorybuf = (int *)buf->pixels;
+        memorypitch = buf->pitch/4;
+    }
     return buf != 0;
 }
 
@@ -219,12 +224,16 @@ bool genv::groutput::open(unsigned width, unsigned height, bool fullscreen)
     } else {
  //       buf = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);//SDL1.2
 		window = SDL_CreateWindow("Graphics",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,0);
-		SDL_SetWindowResizable(window,SDL_TRUE);
 
     }
     renderer = SDL_CreateRenderer(window,-1,0);
     pt_x = width/2;
     pt_y = height/2;
+        if (buf) {
+        memorybuf = (int *)buf->pixels;
+        memorypitch = buf->pitch/4;
+    }
+
     return buf != 0;
 }
 
@@ -279,6 +288,66 @@ void genv::canvas::draw_dot()
     pixel(buf, pt_x, pt_y) = draw_clr;
 }
 
+void genv::canvas::line(int x1, int y1, int x2, int y2,unsigned char r, unsigned char g, unsigned char b)
+{
+    int x=x1;
+    int y=y1;
+    if (x1<0 || y1<0 || x1>=buf->w || y1>=buf->h) {
+        if (x2<0 || y2<0 || x2>=buf->w || y2>=buf->h) {
+            return;
+            
+        } else {
+            x=x2;
+            y=y2;
+            x2=x1;
+            y2=y1;
+            x1=x;
+            y1=y;
+        }
+    }
+    int color=b+256*g+65536*r;
+    int xdir = (x2-x1 > 0 ? 1 : -1);
+    int ydir = (y2-y1 > 0 ? 1 : -1);
+
+    int xstep = 0, ystep = 0;
+    int xshift = 0, yshift = 0;
+    int steps, shifts;
+
+    if (abs(x2-x1) >= abs(y2-y1))
+    {
+        xstep = xdir;
+        yshift = ydir;
+        steps = abs(x2-x1);
+        shifts = abs(y2-y1);
+    }
+    else
+    {
+        ystep = ydir;
+        xshift = xdir;
+        steps = abs(y2-y1);
+        shifts = abs(x2-x1);
+    }
+
+    int len=0;
+    bool noclip = true;
+    for (int i=0; noclip && i<steps; ++i)
+    {
+        unsigned int * pix = (((unsigned int *)buf->pixels)+(y*buf->pitch/4+x));
+        *pix = color;
+        if ((len+=shifts) >= steps)
+        {
+            x+=xstep + xshift;
+            y+=ystep + yshift;
+            len -= steps;
+        }
+        else{
+            x+=xstep;
+            y+=ystep;
+        }
+        noclip &= (x>=0&&y>=0&&x<buf->w&&y<buf->h);
+
+    }
+}
 void genv::canvas::draw_line(int x, int y)
 {
     int xdir = (x > 0 ? 1 : -1);

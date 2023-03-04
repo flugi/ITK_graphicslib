@@ -12,9 +12,10 @@ link_libraries (
 )
 
 add_library( graphics graphics.cpp )
+
+
 add_executable( test_graphics main.cpp )
+target_link_libraries( test_graphics graphics pthread)
 
-
-
-target_link_libraries( test_graphics graphics )
-
+add_executable( helloworld helloworld.cpp )
+target_link_libraries( helloworld graphics)
