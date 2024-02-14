@@ -107,7 +107,8 @@ int main()
     {
         if (ev.type == ev_mouse) {
             gout << move_to(ev.pos_x, ev.pos_y) << dot;
-            if (ev.button==btn_left) gout <<genv::move(-10,-10) << box(20,20);
+            if (ev.button==btn_left) gout <<color(255,0,0) <<genv::move(-10,-10) << box(20,20);
+            if (ev.button==-btn_left) gout <<color(0,255,0) <<genv::move(-10,-10) << box(20,20);
             gout << refresh;
         }
         if (ev.type==ev_timer) {
