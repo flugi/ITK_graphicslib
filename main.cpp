@@ -99,6 +99,7 @@ int main()
     gout.load_font("LiberationSans-Regular.ttf", 24);
     gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255);
     gout << move_to(X/2-100,Y/2)<<color(255,255,255) << text("mouse test - press space");
+    gout.load_font("LiberationSans-Regular.ttf", 36);
     gout << move_to(X/2-100,Y/2+50)<<color(255,255,255) << text("mouse cursor should blink");
     gout << refresh;
     gin.timer(500);
@@ -232,6 +233,17 @@ int main()
         }
     }
     stop=true;
+
+    gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255);
+    gin.timer(40);
+    vector<string> fontnames({"LiberationSans-Regular.ttf","LiberationMono-Regular.ttf","LiberationSerif-Italic.ttf"});
+    while (gin >> ev && ev.keycode != key_escape)
+    {
+        gout << font(fontnames.at(rand()%fontnames.size()),(rand()%10)*2+16);
+        gout << color(127+rand()%127,127+rand()%127,127+rand()%127);
+        gout << move_to(rand()%X,rand()%Y) << text("a");
+        gout << refresh;
+    }
 
 
     return 0;

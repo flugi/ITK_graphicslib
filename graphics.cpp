@@ -494,11 +494,23 @@ bool genv::canvas::load_font(const std::string& fname, int fontsize, bool antial
   if (fontsize < 0)
     fontsize = 16;
   // loading font
-  if(font) {
-  	TTF_CloseFont(font);
-  	font=0;
+//  if(font) {
+//  	TTF_CloseFont(font);
+//  	font=0;
+//  }
+  if (loaded_fonts.find(make_pair(fname, fontsize))!=loaded_fonts.end()) 
+  {
+    font = loaded_fonts.at(make_pair(fname, fontsize));
+    //std::cerr << "recalled font" << std::endl;
+    
+  } 
+  else 
+  {
+    font = TTF_OpenFont( fname.c_str(), fontsize );
+    //std::cerr << "loaded font" << std::endl;
+    if (font)
+        loaded_fonts[make_pair(fname, fontsize)] = font;
   }
-  font = TTF_OpenFont( fname.c_str(), fontsize );
   if (font == 0) // loading error
     return false;
   loaded_font_file_name=fname;
