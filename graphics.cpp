@@ -603,7 +603,7 @@ genv::grinput& genv::grinput::wait_event(event& ev)
             quit = true;
             return *this;
         }
-
+//std::cout << "event: " << se.type << std::endl;
         switch (se.type)
         {
             case SDL_QUIT:

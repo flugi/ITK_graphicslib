@@ -201,8 +201,8 @@ int main()
     while (gin>>ev && ev.keycode != key_escape) {
     	if (ev.type == ev_timer) {
 	    	gout << move_to(0,0) << color(0,0,0) << box(X,Y) << color(255,255,255);
-	    	for (size_t i=0; i<cv.size(); i++) {
-	    		gout << stamp(cv[i],X/2+sin(ev.time/1000.0+i)*X/3,Y/2+sin(ev.time/1200.0+i)*Y/3);
+	    	for (size_t i=0; i<cv.size()*100; i++) {
+	    		gout << stamp(cv[i%cv.size()],X/2+sin(ev.time/1000.0+i/10.0)*X/3,Y/2+sin(ev.time/1180.0+i/10.0*1.18)*Y/3);
 	    	}
 	    	gout << refresh;
     	}
