@@ -71,7 +71,7 @@ protected:
     short pt_x;
     short pt_y;
     SDL_Surface* buf;
-    int draw_clr;
+    unsigned draw_clr;
     bool transp;
     _TTF_Font* font;
     std::map<std::pair<std::string, int>, _TTF_Font*> loaded_fonts;
